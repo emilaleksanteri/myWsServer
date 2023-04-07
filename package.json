@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "dependencies": {
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.13",
+    "@types/node": "^18.15.11"
+  }
+}
