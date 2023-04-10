@@ -21,6 +21,15 @@ wss1.on('connection', function connection(ws) {
   ws.on('close', () => {
     ws.close();
   });
+
+  // check for closed clients
+  setInterval(() => {
+    wss1.clients.forEach(function each(client) {
+      if (client.readyState === WebSocket.CLOSED) {
+        client.close();
+      }
+    });
+  }, 600000);
 });
 
 wss2.on('connection', function connection(ws) {
@@ -38,6 +47,14 @@ wss2.on('connection', function connection(ws) {
   ws.on('close', () => {
     ws.close();
   });
+
+  setInterval(() => {
+    wss2.clients.forEach(function each(client) {
+      if (client.readyState === WebSocket.CLOSED) {
+        client.close();
+      }
+    });
+  }, 600000);
 });
 
 server.on('upgrade', function upgrade(request, socket, head) {
