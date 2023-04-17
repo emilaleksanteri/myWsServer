@@ -64,7 +64,7 @@ wss2.on('connection', function connection(ws) {
 wss3.on('connection', function connection(ws) {
   ws.on('error', console.error);
 
-  // typing, takes in username, don't send data to self
+  // sends back file location for sound
   ws.on('message', (data, isBinary) => {
     wss3.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
