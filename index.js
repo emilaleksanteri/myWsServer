@@ -23,15 +23,6 @@ wss1.on('connection', function connection(ws) {
   ws.on('close', () => {
     ws.close();
   });
-
-  // check for closed clients
-  setInterval(() => {
-    wss1.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.CLOSED) {
-        client.close();
-      }
-    });
-  }, 600000);
 });
 
 // typing socket
@@ -50,21 +41,13 @@ wss2.on('connection', function connection(ws) {
   ws.on('close', () => {
     ws.close();
   });
-
-  setInterval(() => {
-    wss2.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.CLOSED) {
-        client.close();
-      }
-    });
-  }, 600000);
 });
 
 // sound effect socker
 wss3.on('connection', function connection(ws) {
   ws.on('error', console.error);
 
-  // sends back file location for sound
+  // sends back index for which sound effect to play on client
   ws.on('message', (data, isBinary) => {
     wss3.clients.forEach(function each(client) {
       if (client.readyState === WebSocket.OPEN) {
@@ -76,14 +59,6 @@ wss3.on('connection', function connection(ws) {
   ws.on('close', () => {
     ws.close();
   });
-
-  setInterval(() => {
-    wss3.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.CLOSED) {
-        client.close();
-      }
-    });
-  }, 600000);
 });
 
 server.on('upgrade', function upgrade(request, socket, head) {
@@ -106,4 +81,4 @@ server.on('upgrade', function upgrade(request, socket, head) {
   }
 });
 
-server.listen(3001);
+server.listen(8080);
