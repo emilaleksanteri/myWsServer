@@ -6,9 +6,10 @@
       "strict": true,
       "baseUrl": "./",
       "noImplicitAny": true,
-      "downlevelIteration": true
+      "downlevelIteration": true,
+      "outDir": "./dist"
     },
-    "include": ["./**/*.ts"],
+    "include": ["./**/*.ts", "*.ts", "./app/*.ts"],
     "exclude": [
       "node_modules/**/*"
     ]
