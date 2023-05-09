@@ -11,6 +11,24 @@ const wss1ChatClients: Set<{ ws: WebSocket; chatId?: string }> = new Set();
 const wss2ChatClients: Set<{ ws: WebSocket; chatId?: string }> = new Set();
 const wss3ChatClients: Set<{ ws: WebSocket; chatId?: string }> = new Set();
 
+function heartbeat(this: any) {
+  this.isAlive = true;
+}
+
+const cleanChatClientsIntreval = setInterval(() => {
+  // pairs to process
+  const toClear = [wss1ChatClients, wss2ChatClients, wss3ChatClients];
+  const servers = [wss1, wss2, wss3];
+
+  toClear.forEach((serverClients, i) => {
+    for (const user of serverClients) {
+      if (!servers[i].clients.has(user.ws)) {
+        wss1ChatClients.delete(user);
+      }
+    }
+  });
+}, 30000);
+
 // chat socket
 wss1.on('connection', function connection(ws, req) {
   ws.on('error', console.error);
@@ -18,6 +36,8 @@ wss1.on('connection', function connection(ws, req) {
     ws: ws,
     chatId: req.url?.split('?id=')[1],
   });
+
+  ws.on('pong', heartbeat);
 
   ws.on('message', (data) => {
     let clientsToSend: WebSocket[] = [];
