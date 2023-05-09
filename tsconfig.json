@@ -1,0 +1,15 @@
+{
+
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "experimentalDecorators": true,
+      "strict": true,
+      "baseUrl": "./",
+      "noImplicitAny": true,
+      "downlevelIteration": true
+    },
+    "include": ["./**/*.ts"],
+    "exclude": [
+      "node_modules/**/*"
+    ]
+}
